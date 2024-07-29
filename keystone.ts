@@ -16,15 +16,9 @@ import { lists } from './schema';
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth';
 
-console.log("env", process.env);
-
-console.log('ENV', process.env.ENV);
-
 const dbConfig = process.env.DB_CONFIG
   ? process.env.DB_CONFIG
   : "";
-
-console.log("dbConfig", dbConfig);
 
 const dbObject:any = process.env.ENV === "prod" ? {
   provider: 'mysql',
@@ -33,8 +27,6 @@ const dbObject:any = process.env.ENV === "prod" ? {
   provider: 'sqlite',
   url: 'file:./keystone.db',
 };
-
-console.log('dbObject', dbObject);
 
 export default withAuth(
   config({
