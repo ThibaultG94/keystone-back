@@ -170,7 +170,9 @@ var session = (0, import_session.statelessSessions)({
 });
 
 // keystone.ts
+console.log("ENV", process.env.ENV);
 var dbConfig = process.env.DB_CONFIG ? process.env.DB_CONFIG : "";
+console.log("dbConfig", dbConfig);
 var dbObject = process.env.ENV === "dev" ? {
   provider: "sqlite",
   url: "file:./keystone.db"
@@ -178,6 +180,7 @@ var dbObject = process.env.ENV === "dev" ? {
   provider: "mysql",
   url: dbConfig
 };
+console.log("dbObject", dbObject);
 var keystone_default = withAuth(
   (0, import_core2.config)({
     db: dbObject,

@@ -14,6 +14,8 @@ import { lists } from './schema';
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth';
 
+console.log('ENV', process.env.ENV);
+
 const dbConfig = process.env.DB_CONFIG
   ? process.env.DB_CONFIG
   : "";
@@ -27,6 +29,8 @@ const dbObject:any = process.env.ENV === "dev" ? {
   provider: 'mysql',
   url: dbConfig,
 };
+
+console.log('dbObject', dbObject);
 
 export default withAuth(
   config({
