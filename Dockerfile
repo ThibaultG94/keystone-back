@@ -14,8 +14,6 @@ COPY . .
 # Install dependencies
 RUN npm install
 
-# Copy .env file
-COPY .env ./
 
 # Set an environment variable to automatically answer "yes" to prompts
 ENV ACCEPT_EULA=Y
