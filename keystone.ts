@@ -26,12 +26,12 @@ const dbConfig = process.env.DB_CONFIG
 
 console.log("dbConfig", dbConfig);
 
-const dbObject:any = process.env.ENV === "prod" ? {
-  provider: 'mysql',
-  url: dbConfig,
-} : {
+const dbObject:any = process.env.ENV === "dev" ? {
   provider: 'sqlite',
   url: 'file:./keystone.db',
+} : {
+  provider: 'mysql',
+  url: dbConfig,
 };
 
 console.log('dbObject', dbObject);
