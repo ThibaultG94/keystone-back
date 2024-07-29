@@ -170,6 +170,7 @@ var session = (0, import_session.statelessSessions)({
 });
 
 // keystone.ts
+console.log("env", process.env);
 console.log("ENV", process.env.ENV);
 var dbConfig = process.env.DB_CONFIG ? process.env.DB_CONFIG : "";
 console.log("dbConfig", dbConfig);
