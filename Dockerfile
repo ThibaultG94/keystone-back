@@ -1,5 +1,5 @@
 # Use a specific version of node on alpine
-FROM node:19
+FROM node:18
 
 # Set non-interactive mode
 ARG DEBIAN_FRONTEND=noninteractive
