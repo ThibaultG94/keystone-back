@@ -4,10 +4,10 @@ FROM node:18
 # Create app directory
 WORKDIR /usr/src/app
 
-ARG ENV=${ENV}
-ENV ENV=${ENV}
-ARG DB_CONFIG=${DB_CONFIG}
-ENV DB_CONFIG=${DB_CONFIG}
+# ARG ENV=${ENV}
+# ENV ENV=${ENV}
+# ARG DB_CONFIG=${DB_CONFIG}
+# ENV DB_CONFIG=${DB_CONFIG}
 
 # Install app dependencies by copying
 # package.json and package-lock.json
