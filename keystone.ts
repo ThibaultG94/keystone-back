@@ -16,7 +16,7 @@ import { lists } from './schema';
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth';
 
-console.log("env", process.env.ENV);
+console.log("env", process.env);
 
 console.log('ENV', process.env.ENV);
 
