@@ -3,7 +3,7 @@ FROM node:18
 
 # Déclare les arguments qui vont être passés comme variables d'environnement
 ARG ENV
-ARG DB_CONFIG
+ARG DATABASE_URL
 ARG FRONTEND_URL
 
 # Create app directory
@@ -17,7 +17,7 @@ RUN npm install
 
 # Passe les variables d'environnement dans le conteneur
 ENV ENV=${ENV}
-ENV DB_CONFIG=${DB_CONFIG}
+ENV DATABASE_URL=${DATABASE_URL}
 ENV FRONTEND_URL=${FRONTEND_URL}
 
 # Your app binds to port 8080 by default, so use the EXPOSE instruction to have it mapped by the docker daemon

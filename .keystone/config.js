@@ -170,7 +170,7 @@ var session = (0, import_session.statelessSessions)({
 });
 
 // keystone.ts
-var dbConfig = process.env.DB_CONFIG ? process.env.DB_CONFIG : "";
+var dbConfig = process.env.DATABASE_URL ? process.env.DATABASE_URL : "";
 var dbObject = process.env.ENV === "prod" ? {
   provider: "mysql",
   url: dbConfig
