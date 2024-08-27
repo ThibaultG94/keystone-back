@@ -23,6 +23,9 @@ ENV DATABASE_URL=${DATABASE_URL}
 ENV DATABASE_PROVIDER=${DATABASE_PROVIDER}
 ENV FRONTEND_URL=${FRONTEND_URL}
 
+# Vérifie si schema.prisma est présent
+RUN if [ ! -f ./schema.prisma ]; then echo "schema.prisma manquant !"; exit 1; fi
+
 # Génère le client Prisma et applique les migrations
 RUN npx prisma generate
 RUN npx prisma migrate deploy
