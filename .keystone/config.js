@@ -171,7 +171,7 @@ var session = (0, import_session.statelessSessions)({
 
 // keystone.ts
 var dbConfig = process.env.DATABASE_URL ? process.env.DATABASE_URL : "";
-var dbObject = process.env.ENV === "dev" ? {
+var dbObject = process.env.ENV === "prod" ? {
   provider: "sqlite",
   url: "file:./keystone.db"
 } : {

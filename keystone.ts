@@ -20,7 +20,7 @@ const dbConfig = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "";
 
-const dbObject:any = process.env.ENV === "dev" ? {
+const dbObject:any = process.env.ENV === "prod" ? {
   provider: 'sqlite',
   url: 'file:./keystone.db',
 }: {
