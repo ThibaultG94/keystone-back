@@ -18,12 +18,12 @@ const dbConfig = process.env.DB_CONFIG
   ? process.env.DB_CONFIG
   : "";
 
-const dbObject:any = process.env.ENV === "dev" ? {
-  provider: 'sqlite',
-  url: 'file:./keystone.db',
-} : {
+const dbObject:any = process.env.ENV === "prod" ? {
   provider: 'mysql',
   url: dbConfig,
+} : {
+  provider: 'sqlite',
+  url: 'file:./keystone.db',
 };
 
 export default withAuth(
