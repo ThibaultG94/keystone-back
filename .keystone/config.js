@@ -179,7 +179,6 @@ var dbObject = process.env.ENV === "prod" ? {
   url: "file:./keystone.db"
 };
 console.log("DATABASE CONFIGURATION");
-console.log(process.env.DATABASE_URL, "DATABASE URL");
 console.log(process.env.ENV, "ENVIRONMENT");
 console.log(dbObject, "DB OBJECT");
 console.log(process.env.FRONTEND_URL, "FRONTEND URL");
