@@ -34,4 +34,4 @@ RUN npx prisma migrate deploy
 EXPOSE 3000
 
 # Démarre l'application
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]
