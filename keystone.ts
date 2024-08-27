@@ -16,8 +16,8 @@ import { lists } from './schema';
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth';
 
-const dbConfig = process.env.DB_CONFIG
-  ? process.env.DB_CONFIG
+const dbConfig = process.env.DATABASE_URL
+  ? process.env.DATABASE_URL
   : "";
 
 const dbObject:any = process.env.ENV === "dev" ? {
