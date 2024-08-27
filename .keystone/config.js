@@ -182,14 +182,7 @@ var keystone_default = withAuth(
   (0, import_core2.config)({
     db: dbObject,
     lists,
-    session,
-    server: {
-      cors: {
-        origin: process.env.FRONTEND_URL,
-        credentials: true
-      },
-      port: 3e3
-    }
+    session
   })
 );
 //# sourceMappingURL=config.js.map
