@@ -20,6 +20,10 @@ ENV ENV=${ENV}
 ENV DB_CONFIG=${DB_CONFIG}
 ENV FRONTEND_URL=${FRONTEND_URL}
 
+# Génère le client Prisma et applique les migrations
+RUN npx prisma generate
+RUN npx prisma migrate deploy
+
 # Your app binds to port 8080 by default, so use the EXPOSE instruction to have it mapped by the docker daemon
 EXPOSE 3000
 
