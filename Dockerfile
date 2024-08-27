@@ -23,7 +23,7 @@ COPY . .
 RUN npm install
 
 # Expose le port sur lequel l'application écoute
-EXPOSE 3000
+EXPOSE 3306
 
 # Démarre l'application
 CMD [ "npm", "start" ]
