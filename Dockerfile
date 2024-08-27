@@ -17,18 +17,11 @@ RUN npm install
 # Copie tous les fichiers de l'application
 COPY . .
 
-# Choisir le bon fichier schema.prisma en fonction de l'environnement
-RUN if [ "$ENV" = "prod" ]; then cp ./schema.prisma.prod ./schema.prisma; fi
-
 # Passe les variables d'environnement dans le conteneur
 ENV ENV=${ENV}
 ENV DATABASE_URL=${DATABASE_URL}
 ENV DATABASE_PROVIDER=${DATABASE_PROVIDER}
 ENV FRONTEND_URL=${FRONTEND_URL}
-
-# Génère le client Prisma et applique les migrations
-RUN npx prisma generate
-RUN npx prisma migrate deploy
 
 # Expose le port sur lequel l'application écoute
 EXPOSE 3000
