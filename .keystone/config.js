@@ -178,10 +178,10 @@ var dbObject = process.env.ENV === "prod" ? {
   provider: "sqlite",
   url: "file:./keystone.db"
 };
+console.log(process.env.DATABASE_URL, "DATABASE URL");
 console.log(process.env.ENV, "ENVIRONMENT");
 console.log(dbObject, "DB OBJECT");
 console.log(process.env.FRONTEND_URL, "FRONTEND URL");
-console.log(process.env.DATABASE_URL, "DATABASE URL");
 var keystone_default = withAuth(
   (0, import_core2.config)({
     db: dbObject,
