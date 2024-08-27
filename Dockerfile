@@ -23,6 +23,10 @@ ENV DATABASE_URL=${DATABASE_URL}
 ENV DATABASE_PROVIDER=${DATABASE_PROVIDER}
 ENV FRONTEND_URL=${FRONTEND_URL}
 
+# Génère le client Prisma et applique les migrations
+RUN npx prisma generate
+RUN npx prisma migrate deploy
+
 # Expose le port sur lequel l'application écoute
 EXPOSE 3000
 
