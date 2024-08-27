@@ -24,11 +24,11 @@ RUN npm install
 COPY . .
 
 # # Vérifie si schema.prisma est présent
-# RUN if [ ! -f ./schema.prisma ]; then echo "schema.prisma manquant !"; exit 1; fi
+RUN if [ ! -f ./schema.prisma ]; then echo "schema.prisma manquant !"; exit 1; fi
 
 # Génère le client Prisma et applique les migrations
-# RUN npx prisma generate
-# RUN npx prisma migrate deploy
+RUN npx prisma generate
+RUN npx prisma migrate deploy
 
 # Expose le port sur lequel l'application écoute
 EXPOSE 3000
