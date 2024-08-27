@@ -23,7 +23,7 @@ ENV DATABASE_PROVIDER=${DATABASE_PROVIDER}
 ENV FRONTEND_URL=${FRONTEND_URL}
 
 # Choose the correct schema file based on environment
-RUN if [ "$ENV" = "prod" ]; then cp prisma/schema.prisma.prod prisma/schema.prisma; fi
+RUN if [ "$ENV" = "prod" ]; then cp ./schema.prisma.prod ./schema.prisma; fi
 
 # Your app binds to port 8080 by default, so use the EXPOSE instruction to have it mapped by the docker daemon
 EXPOSE 3000
