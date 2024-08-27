@@ -3,4 +3,3 @@ node_modules
 keystone.db
 *.log
 .env
-.prisma

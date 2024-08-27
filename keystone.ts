@@ -18,7 +18,7 @@ const dbConfig = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "";
 
-const dbObject:any = process.env.ENV === "prod" ? {
+const dbObject:any = process.env.ENV === "dev" ? {
   provider: 'mysql',
   url: dbConfig,
 } : {
