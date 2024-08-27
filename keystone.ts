@@ -26,6 +26,10 @@ const dbObject:any = process.env.ENV === "prod" ? {
   url: 'file:./keystone.db',
 };
 
+console.log(process.env.ENV, "ENVIRONMENT");
+console.log(dbObject, "DB OBJECT");
+console.log(process.env.FRONTEND_URL, "FRONTEND URL");
+
 export default withAuth(
   config({
     db: dbObject,
