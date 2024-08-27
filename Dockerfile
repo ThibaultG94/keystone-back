@@ -16,6 +16,9 @@ COPY . .
 # Install dependencies
 RUN npm install
 
+# Choose the correct schema file based on environment
+RUN if [ "$ENV" = "prod" ]; then cp prisma/schema.prisma.prod prisma/schema.prisma; fi
+
 # Passe les variables d'environnement dans le conteneur
 ENV ENV=${ENV}
 ENV DATABASE_URL=${DATABASE_URL}
