@@ -23,7 +23,7 @@ const dbObject:any = process.env.ENV === "prod" ? {
   url: dbConfig,
 } : {
   provider: 'sqlite',
-  url: './keystone',
+  url: './keystone.db',
 };
 
 console.log("DATABASE CONFIGURATION");
