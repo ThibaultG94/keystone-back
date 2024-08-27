@@ -14,23 +14,17 @@ import { lists } from './schema';
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth';
 
-const dbConfig = process.env.DATABASE_URL
-  ? process.env.DATABASE_URL
+const dbConfig = process.env.DB_CONFIG
+  ? process.env.DB_CONFIG
   : "";
 
 const dbObject:any = process.env.ENV === "dev" ? {
+  provider: 'sqlite',
+  url: 'file:./keystone.db',
+} : {
   provider: 'mysql',
   url: dbConfig,
-} : {
-  provider: 'sqlite',
-  url: './keystone.db',
 };
-
-console.log("DATABASE CONFIGURATION");
-// console.log(process.env.DATABASE_URL, "DATABASE URL");
-console.log(process.env.ENV, "ENVIRONMENT");
-console.log(dbObject, "DB OBJECT");
-console.log(process.env.FRONTEND_URL, "FRONTEND URL");
 
 export default withAuth(
   config({
