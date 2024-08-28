@@ -1,5 +1,5 @@
 # Use a specific version of node on alpine
-FROM node:18
+FROM node:18-alpine
 
 # Crée le répertoire de l'application
 WORKDIR /usr/src/app
@@ -17,6 +17,7 @@ ENV DATABASE_PROVIDER=${DATABASE_PROVIDER}
 ENV FRONTEND_URL=${FRONTEND_URL}
 
 # Copie tous les fichiers de l'application
+COPY package.json ./
 COPY . .
 
 # Copie les fichiers de dépendances et installe-les

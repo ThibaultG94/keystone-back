@@ -180,7 +180,10 @@ var dbObject = process.env.ENV === "prod" ? {
 };
 var keystone_default = withAuth(
   (0, import_core2.config)({
-    db: dbObject,
+    db: {
+      provider: "sqlite",
+      url: "file:./keystone.db"
+    },
     lists,
     session
   })

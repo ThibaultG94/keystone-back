@@ -30,7 +30,10 @@ const dbObject:any = process.env.ENV === "prod" ? {
 
 export default withAuth(
   config({
-    db: dbObject,
+    db: {
+      provider: 'sqlite',
+      url: 'file:./keystone.db',
+    },
     lists,
     session,
   })
