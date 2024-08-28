@@ -170,20 +170,17 @@ var session = (0, import_session.statelessSessions)({
 });
 
 // keystone.ts
-var dbConfig = process.env.DATABASE_URL ? process.env.DATABASE_URL : "";
+var dbConfig = process.env.DB_CONFIG ? process.env.DB_CONFIG : "";
 var dbObject = process.env.ENV === "prod" ? {
-  provider: "sqlite",
-  url: "file:./keystone.db"
-} : {
   provider: "mysql",
   url: dbConfig
+} : {
+  provider: "sqlite",
+  url: "file:./keystone.db"
 };
 var keystone_default = withAuth(
   (0, import_core2.config)({
-    db: {
-      provider: "sqlite",
-      url: "file:./keystone.db"
-    },
+    db: dbObject,
     lists,
     session
   })

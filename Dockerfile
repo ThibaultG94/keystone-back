@@ -1,30 +1,23 @@
 # Use a specific version of node on alpine
-FROM node:18-alpine
+FROM node:18
 
-# Crée le répertoire de l'application
+# Create app directory
 WORKDIR /usr/src/app
 
-# Déclare les arguments
-ARG ENV
-ARG DATABASE_URL
-ARG DATABASE_PROVIDER
-ARG FRONTEND_URL
+# ARG ENV=${ENV}
+# ENV ENV=${ENV}
+# ARG DB_CONFIG=${DB_CONFIG}
+# ENV DB_CONFIG=${DB_CONFIG}
 
-# Passe les variables d'environnement dans le conteneur
-ENV ENV=${ENV}
-ENV DATABASE_URL=${DATABASE_URL}
-ENV DATABASE_PROVIDER=${DATABASE_PROVIDER}
-ENV FRONTEND_URL=${FRONTEND_URL}
-
-# Copie tous les fichiers de l'application
-COPY package.json ./
+# Install app dependencies by copying
+# package.json and package-lock.json
 COPY . .
 
-# Copie les fichiers de dépendances et installe-les
+# Install dependencies
 RUN npm install
 
-# Expose le port sur lequel l'application écoute
-EXPOSE 3306
+# Your app binds to port 8080 by default, so use the EXPOSE instruction to have it mapped by the docker daemon
+EXPOSE 3000
 
-# Démarre l'application
-CMD [ "npm", "start" ]
+# Start your app
+CMD [ "npm", "run", "dev" ]
