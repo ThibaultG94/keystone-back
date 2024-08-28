@@ -180,6 +180,13 @@ var dbObject = process.env.ENV === "prod" ? {
 };
 var keystone_default = withAuth(
   (0, import_core2.config)({
+    server: {
+      cors: {
+        origin: [process.env.FRONTEND_URL ? process.env.FRONTEND_URL : "https://www.thibaultguilhem.blog/"]
+        // credentials: true,
+      },
+      port: 3e3
+    },
     db: dbObject,
     lists,
     session
