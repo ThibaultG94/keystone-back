@@ -32,7 +32,7 @@ export default withAuth(
   config({
     server: {
       cors: {
-        origin: [process.env.FRONTEND_URL ? process.env.FRONTEND_URL : "https://www.thibaultguilhem.blog/"],
+        origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog/"],
         // credentials: true,
       },
       port: 3000,
