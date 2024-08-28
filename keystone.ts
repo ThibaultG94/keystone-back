@@ -33,7 +33,8 @@ export default withAuth(
     server: {
       cors: {
         origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog/"],
-        // credentials: true,
+        credentials: true,
+        methods: ['GET', 'POST'],
       },
       port: 3000,
     },

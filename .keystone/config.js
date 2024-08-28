@@ -182,8 +182,9 @@ var keystone_default = withAuth(
   (0, import_core2.config)({
     server: {
       cors: {
-        origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog/"]
-        // credentials: true,
+        origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog/"],
+        credentials: true,
+        methods: ["GET", "POST"]
       },
       port: 3e3
     },
