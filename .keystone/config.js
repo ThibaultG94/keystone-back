@@ -184,7 +184,9 @@ var keystone_default = withAuth(
       cors: {
         origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog/"],
         credentials: true,
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        exposedHeaders: ["Content-Type", "Authorization"]
       },
       port: 3e3
     },

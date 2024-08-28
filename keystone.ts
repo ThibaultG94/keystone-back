@@ -35,6 +35,8 @@ export default withAuth(
         origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog/"],
         credentials: true,
         methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        exposedHeaders: ['Content-Type', 'Authorization'],
       },
       port: 3000,
     },
