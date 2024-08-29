@@ -89,7 +89,7 @@ export const lists: Lists = {
       }),
 
       slug: text({
-        // isIndexed: 'unique',
+        isIndexed: 'unique',
         ui: {
           description: 'Slug généré automatiquement à partir du titre, ou personnalisez-le.',
         },
