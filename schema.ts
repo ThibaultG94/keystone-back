@@ -73,6 +73,19 @@ export const lists: Lists = {
 
       slug: text({ validation: { isRequired: true } }),
 
+      description: text({
+        ui: {
+          displayMode: 'textarea',
+        },
+      }),
+
+      createdAt: timestamp({
+        defaultValue: { kind: 'now' },
+        ui: {
+          description: 'Date de création du post',
+        },
+      }),
+
       // the document field can be used for making rich editable content
       //   you can find out more at https://keystonejs.com/docs/guides/document-fields
       content: document({

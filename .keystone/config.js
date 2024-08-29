@@ -69,6 +69,17 @@ var lists = {
     fields: {
       title: (0, import_fields.text)({ validation: { isRequired: true } }),
       slug: (0, import_fields.text)({ validation: { isRequired: true } }),
+      description: (0, import_fields.text)({
+        ui: {
+          displayMode: "textarea"
+        }
+      }),
+      createdAt: (0, import_fields.timestamp)({
+        defaultValue: { kind: "now" },
+        ui: {
+          description: "Date de cr\xE9ation du post"
+        }
+      }),
       // the document field can be used for making rich editable content
       //   you can find out more at https://keystonejs.com/docs/guides/document-fields
       content: (0, import_fields_document.document)({
