@@ -26,8 +26,6 @@ import { document } from '@keystone-6/fields-document';
 // the generated types from '.keystone/types'
 import type { Lists } from '.keystone/types';
 
-import { resolveSlugService } from './utils/resolveSlugService';
-
 export const lists: Lists = {
   User: list({
     // WARNING
@@ -88,13 +86,6 @@ export const lists: Lists = {
         dividers: true,
       }),
 
-      slug: text({
-        isIndexed: 'unique',
-        ui: {
-          description: 'Slug généré automatiquement à partir du titre, ou personnalisez-le.',
-        },
-      }),
-
       // with this field, you can set a User as the author for a Post
       author: relationship({
         // we could have used 'User', but then the relationship would only be 1-way
@@ -132,9 +123,6 @@ export const lists: Lists = {
           inlineCreate: { fields: ['name'] },
         },
       }),
-    },
-    hooks: {
-      resolveInput: resolveSlugService,  // Utilisation du service pour gérer la génération du slug
     },
   }),
 
