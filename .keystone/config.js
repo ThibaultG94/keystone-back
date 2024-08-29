@@ -31,6 +31,20 @@ var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
 var import_fields = require("@keystone-6/core/fields");
 var import_fields_document = require("@keystone-6/fields-document");
+
+// utils/resolveSlugService.ts
+var resolveSlugService = async ({ resolvedData, item, operation }) => {
+  if (resolvedData.slug) {
+    return resolvedData;
+  }
+  const title = resolvedData.title || item?.title;
+  if (title) {
+    resolvedData.slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+  return resolvedData;
+};
+
+// schema.ts
 var lists = {
   User: (0, import_core.list)({
     // WARNING
@@ -82,6 +96,12 @@ var lists = {
         links: true,
         dividers: true
       }),
+      slug: (0, import_fields.text)({
+        isIndexed: "unique",
+        ui: {
+          description: "Slug g\xE9n\xE9r\xE9 automatiquement \xE0 partir du titre, ou personnalisez-le."
+        }
+      }),
       // with this field, you can set a User as the author for a Post
       author: (0, import_fields.relationship)({
         // we could have used 'User', but then the relationship would only be 1-way
@@ -114,6 +134,10 @@ var lists = {
           inlineCreate: { fields: ["name"] }
         }
       })
+    },
+    hooks: {
+      resolveInput: resolveSlugService
+      // Utilisation du service pour gérer la génération du slug
     }
   }),
   // this last list is our Tag list, it only has a name field for now
