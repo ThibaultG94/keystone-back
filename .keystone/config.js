@@ -97,7 +97,7 @@ var lists = {
         dividers: true
       }),
       slug: (0, import_fields.text)({
-        isIndexed: "unique",
+        // isIndexed: 'unique',
         ui: {
           description: "Slug g\xE9n\xE9r\xE9 automatiquement \xE0 partir du titre, ou personnalisez-le."
         }
