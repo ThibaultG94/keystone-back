@@ -150,7 +150,6 @@ type Post_content_Document {
 
 input PostWhereUniqueInput {
   id: ID
-  slug: String
 }
 
 input PostWhereInput {

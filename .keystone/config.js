@@ -68,12 +68,7 @@ var lists = {
     // this is the fields for our Post list
     fields: {
       title: (0, import_fields.text)({ validation: { isRequired: true } }),
-      slug: (0, import_fields.text)({
-        validation: { isRequired: true },
-        ui: {
-          description: "URL-friendly slug pour ce post (doit \xEAtre unique)"
-        }
-      }),
+      slug: (0, import_fields.text)({ validation: { isRequired: true } }),
       // the document field can be used for making rich editable content
       //   you can find out more at https://keystonejs.com/docs/guides/document-fields
       content: (0, import_fields_document.document)({
