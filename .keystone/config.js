@@ -155,22 +155,60 @@ var lists = {
     }
   }),
   Comment: (0, import_core.list)({
-    access: {
-      operation: {
-        query: import_access.allowAll,
-        create: import_access.allowAll,
-        update: import_access.allowAll,
-        delete: import_access.allowAll
-      }
-    },
+    access: import_access.allowAll,
     fields: {
-      author: (0, import_fields.text)({ validation: { isRequired: true } }),
-      email: (0, import_fields.text)({ validation: { isRequired: true } }),
-      content: (0, import_fields.text)({ validation: { isRequired: true }, ui: { displayMode: "textarea" } }),
+      author: (0, import_fields.text)({
+        validation: {
+          isRequired: true,
+          length: { min: 2, max: 50 }
+        }
+      }),
+      email: (0, import_fields.text)({
+        validation: {
+          isRequired: true,
+          match: {
+            regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            explanation: "Doit \xEAtre une adresse email valide"
+          }
+        }
+      }),
+      content: (0, import_fields.text)({
+        validation: {
+          isRequired: true,
+          length: { min: 10, max: 1e3 }
+        },
+        ui: { displayMode: "textarea" }
+      }),
       post: (0, import_fields.relationship)({ ref: "Post.comments" }),
       createdAt: (0, import_fields.timestamp)({
         defaultValue: { kind: "now" }
       })
+    },
+    hooks: {
+      validateInput: async ({
+        operation,
+        resolvedData,
+        addValidationError,
+        context
+      }) => {
+        if (operation === "create") {
+          if (resolvedData.email) {
+            const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1e3);
+            const recentComments = await context.query.Comment.count({
+              where: {
+                email: { equals: resolvedData.email },
+                createdAt: { gt: fiveMinutesAgo.toISOString() }
+              }
+            });
+            if (recentComments >= 5) {
+              addValidationError("Trop de commentaires en peu de temps. Veuillez r\xE9essayer plus tard.");
+            }
+          }
+        }
+        if (resolvedData.content) {
+          resolvedData.content = resolvedData.content.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "").trim();
+        }
+      }
     }
   })
 };

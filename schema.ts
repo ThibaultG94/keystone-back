@@ -172,22 +172,66 @@ export const lists: Lists = {
   }),
 
   Comment: list({
-    access: {
-      operation: {
-        query: allowAll,
-        create: allowAll,
-        update: allowAll,
-        delete: allowAll,
-      },
-    },
+    access: allowAll,
     fields: {
-      author: text({ validation: { isRequired: true } }),
-      email: text({ validation: { isRequired: true } }),
-      content: text({ validation: { isRequired: true }, ui: { displayMode: 'textarea' } }),
+      author: text({
+        validation: {
+          isRequired: true,
+          length: { min: 2, max: 50 },
+        },
+      }),
+      email: text({
+        validation: {
+          isRequired: true,
+          match: {
+            regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            explanation: 'Doit être une adresse email valide',
+          },
+        },
+      }),
+      content: text({
+        validation: {
+          isRequired: true,
+          length: { min: 10, max: 1000 },
+        },
+        ui: { displayMode: 'textarea' },
+      }),
       post: relationship({ ref: 'Post.comments' }),
       createdAt: timestamp({
         defaultValue: { kind: 'now' },
       }),
+    },
+    hooks: {
+      validateInput: async ({ 
+        operation, 
+        resolvedData, 
+        addValidationError, 
+        context
+      }: any) => {
+        if (operation === 'create') {
+          // Vérification du rate limiting
+          if (resolvedData.email) {
+            const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+            const recentComments = await context.query.Comment.count({
+              where: {
+                email: { equals: resolvedData.email },
+                createdAt: { gt: fiveMinutesAgo.toISOString() },
+              },
+            });
+
+            if (recentComments >= 5) {
+              addValidationError('Trop de commentaires en peu de temps. Veuillez réessayer plus tard.');
+            }
+          }
+        }
+
+        // Sanitisation basique du contenu
+        if (resolvedData.content) {
+          resolvedData.content = resolvedData.content
+            .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+            .trim();
+        }
+      },
     },
   }),
 };
