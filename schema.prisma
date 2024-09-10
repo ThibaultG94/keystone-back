@@ -30,6 +30,7 @@ model Post {
   author      User?     @relation("Post_author", fields: [authorId], references: [id])
   authorId    String?   @map("author")
   tags        Tag[]     @relation("Post_tags")
+  comments    Comment[] @relation("Comment_post")
 
   @@index([authorId])
 }
@@ -38,4 +39,16 @@ model Tag {
   id    String @id @default(cuid())
   name  String @default("")
   posts Post[] @relation("Post_tags")
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  author    String    @default("")
+  email     String    @default("")
+  content   String    @default("")
+  post      Post?     @relation("Comment_post", fields: [postId], references: [id])
+  postId    String?   @map("post")
+  createdAt DateTime? @default(now())
+
+  @@index([postId])
 }

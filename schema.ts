@@ -65,7 +65,14 @@ export const lists: Lists = {
     //   for this starter project, anyone can create, query, update and delete anything
     //   if you want to prevent random people on the internet from accessing your data,
     //   you can find out more at https://keystonejs.com/docs/guides/auth-and-access-control
-    access: allowAll,
+    access: {
+      operation: {
+        query: allowAll,
+        create: allowAll,
+        update: allowAll,
+        delete: allowAll,
+      },
+    },
 
     // this is the fields for our Post list
     fields: {
@@ -138,6 +145,8 @@ export const lists: Lists = {
           inlineCreate: { fields: ['name'] },
         },
       }),
+
+      comments: relationship({ ref: 'Comment.post', many: true }),
     },
   }),
 
@@ -159,6 +168,26 @@ export const lists: Lists = {
       name: text(),
       // this can be helpful to find out all the Posts associated with a Tag
       posts: relationship({ ref: 'Post.tags', many: true }),
+    },
+  }),
+
+  Comment: list({
+    access: {
+      operation: {
+        query: allowAll,
+        create: allowAll,
+        update: allowAll,
+        delete: allowAll,
+      },
+    },
+    fields: {
+      author: text({ validation: { isRequired: true } }),
+      email: text({ validation: { isRequired: true } }),
+      content: text({ validation: { isRequired: true }, ui: { displayMode: 'textarea' } }),
+      post: relationship({ ref: 'Post.comments' }),
+      createdAt: timestamp({
+        defaultValue: { kind: 'now' },
+      }),
     },
   }),
 };

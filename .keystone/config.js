@@ -64,7 +64,14 @@ var lists = {
     //   for this starter project, anyone can create, query, update and delete anything
     //   if you want to prevent random people on the internet from accessing your data,
     //   you can find out more at https://keystonejs.com/docs/guides/auth-and-access-control
-    access: import_access.allowAll,
+    access: {
+      operation: {
+        query: import_access.allowAll,
+        create: import_access.allowAll,
+        update: import_access.allowAll,
+        delete: import_access.allowAll
+      }
+    },
     // this is the fields for our Post list
     fields: {
       title: (0, import_fields.text)({ validation: { isRequired: true } }),
@@ -125,7 +132,8 @@ var lists = {
           inlineConnect: true,
           inlineCreate: { fields: ["name"] }
         }
-      })
+      }),
+      comments: (0, import_fields.relationship)({ ref: "Comment.post", many: true })
     }
   }),
   // this last list is our Tag list, it only has a name field for now
@@ -144,6 +152,25 @@ var lists = {
       name: (0, import_fields.text)(),
       // this can be helpful to find out all the Posts associated with a Tag
       posts: (0, import_fields.relationship)({ ref: "Post.tags", many: true })
+    }
+  }),
+  Comment: (0, import_core.list)({
+    access: {
+      operation: {
+        query: import_access.allowAll,
+        create: import_access.allowAll,
+        update: import_access.allowAll,
+        delete: import_access.allowAll
+      }
+    },
+    fields: {
+      author: (0, import_fields.text)({ validation: { isRequired: true } }),
+      email: (0, import_fields.text)({ validation: { isRequired: true } }),
+      content: (0, import_fields.text)({ validation: { isRequired: true }, ui: { displayMode: "textarea" } }),
+      post: (0, import_fields.relationship)({ ref: "Post.comments" }),
+      createdAt: (0, import_fields.timestamp)({
+        defaultValue: { kind: "now" }
+      })
     }
   })
 };
@@ -196,9 +223,8 @@ var keystone_default = withAuth(
       cors: {
         origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog", "https://www.chroniques-d-un-dev.com"],
         credentials: true,
-        methods: ["GET", "POST"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-        exposedHeaders: ["Content-Type", "Authorization"]
+        methods: ["GET", "POST", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization", "Apollo-Require-Preflight"]
       },
       port: 3e3
     },

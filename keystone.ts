@@ -34,9 +34,8 @@ export default withAuth(
       cors: {
         origin: [process.env.FRONTEND_URL, "https://www.thibaultguilhem.blog", "https://www.chroniques-d-un-dev.com"],
         credentials: true,
-        methods: ['GET', 'POST'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        exposedHeaders: ['Content-Type', 'Authorization'],
+        methods: ['GET', 'POST', 'OPTIONS'], 
+        allowedHeaders: ['Content-Type', 'Authorization', 'Apollo-Require-Preflight'],
       },
       port: 3000,
     },
